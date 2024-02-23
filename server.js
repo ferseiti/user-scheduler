@@ -1,7 +1,12 @@
-// Server-side (Node.js + Express.js + MongoDB)
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
+const eventRoutes = require('./routes/eventRoutes');
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/user-scheduler', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -12,17 +17,7 @@ db.once('open', function() {
   console.log("We're connected to MongoDB!");
 });
 
-const eventSchema = new mongoose.Schema({
-  Subject: String,
-  StartTime: Date,
-  EndTime: Date
-});
+app.use('/', eventRoutes);
 
-const Event = mongoose.model('Event', eventSchema);
-
-app.get('/events', async (req, res) => {
-  const events = await Event.find();
-  res.send(events);
-});
 
 app.listen(5000, () => console.log('Server started on port 5000'));
