@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-  Subject: String,
+  Servidor: String,
+  Username: String,
   StartTime: Date,
   EndTime: Date,
-  IsAllDay: Boolean,
-  Location: String,
-  Description: String,
-  RecurrenceRule: String,
+  Description: String
 });
 
 const Event = mongoose.model('Event', eventSchema);

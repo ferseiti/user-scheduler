@@ -8,6 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost:27017/user-scheduler', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
@@ -18,6 +19,5 @@ db.once('open', function() {
 });
 
 app.use('/', eventRoutes);
-
 
 app.listen(5000, () => console.log('Server started on port 5000'));

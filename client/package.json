@@ -1,9 +1,13 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
+    "@syncfusion/ej2-base": "^24.2.7",
+    "@syncfusion/ej2-inputs": "^24.2.7",
     "@syncfusion/ej2-react-buttons": "^24.2.7",
+    "@syncfusion/ej2-react-calendars": "^24.2.8",
+    "@syncfusion/ej2-react-dropdowns": "^24.2.8",
     "@syncfusion/ej2-react-schedule": "^24.2.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
