@@ -5,6 +5,7 @@ import './App.css';
 import * as Templates from './Templates';
 
 import { ScheduleComponent, Month, Inject, ViewsDirective, ViewDirective, Resize } from '@syncfusion/ej2-react-schedule';
+
 import { registerLicense } from '@syncfusion/ej2-base';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
@@ -17,6 +18,14 @@ function App() {
   const onAddClick = (args) => {
     let cellData = scheduleRef.current.activeCellsData;
     scheduleRef.current.openEditor(cellData, 'Add');
+  }
+
+  const onEditClick = (args) => {
+    let eventData = scheduleRef.current.activeEventData;
+    console.log(eventData);
+    if (eventData.event !== undefined) {
+      scheduleRef.current.openEditor(eventData.event, 'Save');
+    }
   }
 
   useEffect(() => {
@@ -58,6 +67,7 @@ function App() {
   
   function onEventRendered(args) {
     let servidor = args.data.Servidor;
+    // console.log(args.data)
     for (let server of Templates.servers) {
       if (server.text === servidor) {
         args.element.style.backgroundColor = server.categoryColor;
@@ -83,16 +93,17 @@ function App() {
   return (
     <div>
       <ButtonComponent id='btn1' title='New' onClick={onAddClick}>Adicionar agendamento</ButtonComponent>
-      <ButtonComponent id='btn2' title='Edit'>Editar Agendamento</ButtonComponent>
+      <ButtonComponent id='btn2' title='Edit' onClick={onEditClick}>Editar Agendamento</ButtonComponent>
       <ScheduleComponent ref={scheduleRef} width='100%' height='80em' rowAutoHeight={true} 
                         eventSettings={{ dataSource: events, fields: Templates.fieldsData}}
                         editorTemplate={Templates.editorTemplate}
                         eventRendered={onEventRendered}
-                        popupOpen={onPopupOpen} 
-                        showQuickInfo={false}
-                        // cellClick={onCellClick}
-                        //quickInfoTemplates={Templates.quickInfoTemplates}
-                        actionComplete={onActionComplete} allowResizing={true} quickInfoOnSelectionEnd={false} >
+                        popupOpen={onPopupOpen}
+                        actionComplete={onActionComplete} 
+                        allowKeyboardInteraction={true}
+                        allowResizing={true} 
+                        quickInfoOnSelectionEnd={true}
+                        showQuickInfo={true} >
           <ViewsDirective>
             <ViewDirective option='Month' readonly={false} />
           </ViewsDirective>
