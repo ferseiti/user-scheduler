@@ -1,0 +1,5 @@
+{    
+    "dbHost": "localhost",
+    "dbName": "user-scheduler",
+    "dbPort": 27017
+}
