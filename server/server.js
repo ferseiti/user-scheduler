@@ -9,17 +9,19 @@ const CONFIG = require('/etc/secrets/config.json');
 app.use(cors());
 app.use(express.json());
 
-var dbPort = CONFIG.dbPort;
+// var dbPort = CONFIG.dbPort;
 var dbHost = CONFIG.dbHost;
 var dbName = CONFIG.dbName;
+var dbUser = CONFIG.dbUser;
+var dbPass = CONFIG.dbPass;
 
 var serverPort = 5000;
 var serverHost = '0.0.0.0';
 
 // var mongodb = `mongodb://${dbHost}:${dbPort}/${dbName}`
-var mongouri = `mongodb+srv://${dbHost}:${dbPass}@${dbHost}`
+var mongouri = `mongodb+srv://${dbUser}:${dbPass}@${dbHost}`
 
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useFindAndModify', false);
 // mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect(mongouri);
 
