@@ -3,3 +3,5 @@
 /server/node_modules
 client/.env
 package-lock.json
+/server/bongodb
+/server/bongodba

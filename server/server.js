@@ -4,7 +4,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const cors = require('cors');
 const app = express();
 
-const CONFIG = require('./config.json');
+const CONFIG = require('./config/config.json');
 
 app.use(cors());
 app.use(express.json());
@@ -12,6 +12,9 @@ app.use(express.json());
 var dbPort = CONFIG.dbPort;
 var dbHost = CONFIG.dbHost;
 var dbName = CONFIG.dbName;
+
+var serverPort = 5000;
+var serverHost = '0.0.0.0';
 
 var mongodb = `mongodb://${dbHost}:${dbPort}/${dbName}`
 
@@ -27,4 +30,4 @@ db.once('open', function () {
 
 app.use('/', eventRoutes);
 
-app.listen(5000, () => console.log('Server started on port 5000'));
+app.listen(serverPort, serverHost, () => console.log('Server started on port ' + serverPort));

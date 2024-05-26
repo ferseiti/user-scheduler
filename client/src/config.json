@@ -1,4 +1,4 @@
 {
-    "serverEndpoint": "localhost",
-    "serverPort": 5000
+    "serverEndpoint": "tcc-server-1-0-2.onrender.com/",
+    "serverPort": 443
 }

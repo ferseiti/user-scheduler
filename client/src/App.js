@@ -9,10 +9,16 @@ import { ScheduleComponent, Day, Month, Inject, ViewsDirective, ViewDirective, R
 import { registerLicense } from '@syncfusion/ej2-base';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
-const CONFIG = require('./config.json');
-const server_endpoint = CONFIG.serverEndpoint;
-const server_port = CONFIG.serverPort;
+const server_endpoint = process.env.REACT_APP_SERVER;
+const server_port = process.env.REACT_APP_SERVER_PORT;
 
+if (server_port == 443) {
+    var server_url = `https://${server_endpoint}`;
+} else {
+    var server_url = `http://${server_endpoint}:${server_port}`;
+}
+
+console.log(process.env)
 registerLicense(process.env.REACT_APP_SYNCFUSION_API_KEY);
 
 function App() {
@@ -34,15 +40,15 @@ function App() {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const res = await axios.get(`http://${server_endpoint}:${server_port}/events`);
+            const res = await axios.get(`${server_url}/events`);
             setEvents(res.data);
         };
 
         fetchEvents();
     }, []);
 
+    const headers = { 'Access-Control-Allow-Origin':"*" }
     const onActionComplete = async (args) => {
-        console.log(args.requestType);
         if (args.requestType === 'eventCreated') {
             for (let event of args.data) {
                 if (new Set([event.EndTime.getMinutes(), 
@@ -50,9 +56,9 @@ function App() {
                              // se o evento termina em 0 horas e 0 minutos, subtrai 1 segundo
                     event.EndTime -= 1;
                 console.log(event);
-                await axios.post(`http://${server_endpoint}:${server_port}/events`, event);
+                await axios.post(`${server_url}/events`, event);
             }
-            const response = await axios.get(`http://${server_endpoint}:${server_port}/events`);
+            const response = await axios.get(`${server_url}/events`);
             setEvents(response.data);
         }
         if (args.requestType === 'eventChanged') {
@@ -61,9 +67,9 @@ function App() {
                              event.EndTime.getHours()]).size === 1) 
                              // se o evento termina em 0 horas e 0 minutos, subtrai 1 segundo
                     event.EndTime -= 1;
-                await axios.put(`http://${server_endpoint}:${server_port}/events/${event._id}`, event);
+                await axios.put(`${server_url}/events/${event._id}`, event);
             }
-            const response = await axios.get(`http://${server_endpoint}:${server_port}/events`);
+            const response = await axios.get(`${server_url}/events`);
             setEvents(response.data);
         }
         if (args.requestType === 'eventRemoved') {
@@ -71,7 +77,7 @@ function App() {
                 await axios.delete(`http://localhost:5000/events/${event._id}`);
                 console.log(`${event._id}`);
             }
-            const response = await axios.get(`http://${server_endpoint}:${server_port}/events`);
+            const response = await axios.get(`${server_url}/events`);
             setEvents(response.data);
         }
     };
@@ -82,6 +88,7 @@ function App() {
         for (let server of Templates.servers) {
             if (server.text === servidor) {
                 args.element.style.backgroundColor = server.categoryColor;
+                args.element.style.color = '#5B5B5B';
             }
         }
     }
