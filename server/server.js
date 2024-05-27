@@ -6,7 +6,11 @@ const app = express();
 
 const CONFIG = require('/etc/secrets/config.json');
 
-app.use(cors());
+var corsOptions = {
+    origin: ["https://user-scheduler-client.onrender.com","189.46.23.213"]
+    }
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // var dbPort = CONFIG.dbPort;
