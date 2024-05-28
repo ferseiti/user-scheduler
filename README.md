@@ -34,6 +34,10 @@ podman build -t user-scheduler-server .
 E, para executar os containers, basta executar o comando:
 
 ```bash
-podman run -d --network user-scheduler --name user-scheduler-client -p 3000:3000 user-scheduler-client
-podman run -d --network user-scheduler --name user-scheduler-server -p 5000:5000 user-scheduler-server
+# cliente
+podman run -d --network user-scheduler --name user-scheduler-client -p 3000:3000 --env REACT_APP_SERVER=localhost --env REACT_APP_SERVER_PORT=5000 user-scheduler-client
+
+# servidor
+podman run -d --network user-scheduler --name user-scheduler-server -p 5000:5000 -v config:/app/config user-scheduler-server
 ```
+Atenção para o container do cliente. O endereço do servidor deve ser um endereço acessível do local onde o cliente abre o navegador.
