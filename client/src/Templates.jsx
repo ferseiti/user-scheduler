@@ -27,10 +27,10 @@ const editorTemplate = (props) => {
 }
 
 const servers = [
-    { text: 'Robot', value: 'robot', categoryColor: '#ff0000' },
-    { text: 'Cyborg', value: 'cyborg', categoryColor: '#fffb00' },
-    { text: 'Android', value: 'android', categoryColor: '#f000ff' },
-    { text: 'Legion', value: 'legion', categoryColor: '#0004ff' },
+    { text: 'Robot', value: 'robot', categoryColor: '#D7BDE2' },
+    { text: 'Cyborg', value: 'cyborg', categoryColor: '#FFEBA9' },
+    { text: 'Android', value: 'android', categoryColor: '#E2F7A6' },
+    { text: 'Legion', value: 'legion', categoryColor: '#BDD2E2' },
 ];
 
 const fieldsData = {
