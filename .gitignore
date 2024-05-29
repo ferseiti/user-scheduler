@@ -7,3 +7,5 @@ client/build
 package-lock.json
 /server/bongodb
 /server/bongodba
+/client/build
+/server/build
